@@ -4,48 +4,58 @@
 #include "../include/main.h"
 int main()
 {
-  int data1= 10;
-  int data2= 9;
-  int data3= 8;
-  int data4 = 7;
-  int data5= 6;
-  int data6= 7;
-  int data7= 8;
-  int data8 = 9;
-  int data9 = 10;
-  int data10 = 13;
+  int *data1= malloc(sizeof(int)*1);
+  *data1=10;
+  int *data2= malloc(sizeof(int)*1);
+  *data2=9;
+  int *data3= malloc(sizeof(int)*1);
+  *data3=8;
+  int *data4= malloc(sizeof(int)*1);
+  *data4=7;
+  int *data5= malloc(sizeof(int)*1);
+  *data5=6;
+  int *data6= malloc(sizeof(int)*1);
+  *data6=7;
+  int *data7= malloc(sizeof(int)*1);
+  *data7=8;
+  int *data8= malloc(sizeof(int)*1);
+  *data8=9;
+  int *data9= malloc(sizeof(int)*1);
+  *data9=10;
+  int *data10= malloc(sizeof(int)*1);
+  *data10=13;
 
   Tree *tree = createBalancedBinTree(compareIntFunction,&free,NULL);
-  printf("\ninserting %d",data1);
-  treeInsertNode(tree,&data1);
-    treePreOrderPrint(tree, &intPrint);
-  printf("\ninserting %d",data2);
-  treeInsertNode(tree,&data2);
-    treePreOrderPrint(tree, &intPrint);
+  printf("\ninserting %d",*data1);
+  treeInsertNode(tree,data1);
+  treePreOrderPrint(tree, &intPrint);
+  printf("\ninserting %d",*data2);
+  treeInsertNode(tree,data2);
+  treePreOrderPrint(tree, &intPrint);
 
-  printf("\ninserting %d",data3);
-  treeInsertNode(tree,&data3);
-    treePreOrderPrint(tree, &intPrint);
+  printf("\ninserting %d",*data3);
+  treeInsertNode(tree,data3);
+  treePreOrderPrint(tree, &intPrint);
 
-  printf("\ninserting %d",data4);
-  treeInsertNode(tree,&data4);
-    treePreOrderPrint(tree, &intPrint);
+  printf("\ninserting %d",*data4);
+  treeInsertNode(tree,data4);
+  treePreOrderPrint(tree, &intPrint);
 
-  printf("\ninserting %d",data5);
-  treeInsertNode(tree,&data5);
-    treePreOrderPrint(tree, &intPrint);
+  printf("\ninserting %d",*data5);
+  treeInsertNode(tree,data5);
+  treePreOrderPrint(tree, &intPrint);
 
-  printf("\ninserting %d",data6);
-  treeInsertNode(tree,&data6);
-    treePreOrderPrint(tree, &intPrint);
+  printf("\ninserting %d",*data6);
+  treeInsertNode(tree,data6);
+  treePreOrderPrint(tree, &intPrint);
 
-  printf("\ninserting %d",data7);
-  treeInsertNode(tree,&data7);
-    treePreOrderPrint(tree, &intPrint);
+  printf("\ninserting %d",*data7);
+  treeInsertNode(tree,data7);
+  treePreOrderPrint(tree, &intPrint);
 
-  treeInsertNode(tree,&data8);
-  treeInsertNode(tree,&data9);
-  treeInsertNode(tree,&data10);
+  treeInsertNode(tree,data8);
+  treeInsertNode(tree,data9);
+  treeInsertNode(tree,data10);
 
   //print the tree in various orders
   treePreOrderPrint(tree, &intPrint);
@@ -55,11 +65,11 @@ int main()
   //delete a node from the tree
   //treeDeleteNode(tree,&data2);
   //treeDeleteNode(tree,&data4);
-   treePreOrderPrint(tree, &intPrint);
+  treePreOrderPrint(tree, &intPrint);
   treeInOrderPrint(tree,&intPrint);
   treePostOrderPrint(tree,&intPrint);
- // treeDeleteNode(tree,&data6);
- // treeDeleteNode(tree,&data8);
+  //treeDeleteNode(tree,&data6);
+//treeDeleteNode(tree,&data8);
 
   //reprint the tree after deletion
   treePreOrderPrint(tree, &intPrint);

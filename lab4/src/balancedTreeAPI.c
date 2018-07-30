@@ -110,7 +110,7 @@ void treeInsertNode(Tree *theTree, void *toBeInserted)
   //checking if tree needs to be balanced
   if(NodeToBeBalanced!=NULL)
   {
-      printf("\nbalance = %d left=%d right=%d",*(int*)NodeToBeBalanced->data,leftHeight,rightHeight);
+    printf("\nbalance = %d left=%d right=%d",*(int*)NodeToBeBalanced->data,leftHeight,rightHeight);
     if(leftHeight>rightHeight) //case left
     {
       if(NodeToBeBalanced->left->left!=NULL)
@@ -138,8 +138,9 @@ void treeInsertNode(Tree *theTree, void *toBeInserted)
         rightRotate(theTree,NodeToBeBalanced);
       }
     }
-    else{//case right
-       if(NodeToBeBalanced->right->right!=NULL)
+    else //case right
+    {
+      if(NodeToBeBalanced->right->right!=NULL)
       {
         if(NodeToBeBalanced->right->left!=NULL)
         {
@@ -235,14 +236,14 @@ void treeDeleteNode(Tree *theTree, void *toBeDeleted)
       {
         placeholder->parent->left = placeholder->left;
         placeholder->left->parent = placeholder->parent;
-         parentOfDeleted=placeholder->parent;
+        parentOfDeleted=placeholder->parent;
         free(placeholder);
       }
       else
       {
         placeholder->parent->right = placeholder->left;
         placeholder->left->parent = placeholder->parent;
-         parentOfDeleted=placeholder->parent;
+        parentOfDeleted=placeholder->parent;
         free(placeholder);
       }
     }
@@ -284,7 +285,7 @@ void treeDeleteNode(Tree *theTree, void *toBeDeleted)
   //rebalance after delete
   //parentofdeleted is where we start walking up to find unbalanced nodes
 
-   //step 1:check all parents to find an unbalanced node
+  //step 1:check all parents to find an unbalanced node
   int leftHeight=0;
   int rightHeight=0;
   TreeNode *NodeToBeBalanced=NULL;
@@ -317,7 +318,7 @@ void treeDeleteNode(Tree *theTree, void *toBeDeleted)
   //checking if tree needs to be balanced
   if(NodeToBeBalanced!=NULL)
   {
-      printf("\nbalance = %d left=%d right=%d",*(int*)NodeToBeBalanced->data,leftHeight,rightHeight);
+    printf("\nbalance = %d left=%d right=%d",*(int*)NodeToBeBalanced->data,leftHeight,rightHeight);
     if(leftHeight>rightHeight) //case left
     {
       if(NodeToBeBalanced->left->left!=NULL)
@@ -345,8 +346,9 @@ void treeDeleteNode(Tree *theTree, void *toBeDeleted)
         rightRotate(theTree,NodeToBeBalanced);
       }
     }
-    else{//case right
-       if(NodeToBeBalanced->right->right!=NULL)
+    else //case right
+    {
+      if(NodeToBeBalanced->right->right!=NULL)
       {
         if(NodeToBeBalanced->right->left!=NULL)
         {
