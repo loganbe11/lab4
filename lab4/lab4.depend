@@ -28,7 +28,7 @@
 1532616317 c:\users\logan\desktop\cis2520\assignment3\lab4\tree.h
 	"balancedTreeAPI.h"
 
-1532740641 source:c:\users\logan\desktop\cis2520\lab4\src\main.c
+1532919434 source:c:\users\logan\desktop\cis2520\lab4\src\main.c
 	<stdio.h>
 	<stdlib.h>
 	"../include/balancedTreeAPI.h"
@@ -45,7 +45,7 @@
 
 1532617116 c:\users\logan\desktop\cis2520\lab4\include\main.h
 
-1532741043 source:c:\users\logan\desktop\cis2520\lab4\src\balancedtreeapi.c
+1532919374 source:c:\users\logan\desktop\cis2520\lab4\src\balancedtreeapi.c
 	<stdio.h>
 	<stdlib.h>
 	"../include/balancedTreeAPI.h"

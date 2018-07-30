@@ -175,6 +175,7 @@ void treeDeleteNode(Tree *theTree, void *toBeDeleted)
   TreeNode *placeholder = treeFindNode(theTree,toBeDeleted);
   TreeNode *findLeft = NULL;
   TreeNode *findLeftParent = NULL;
+  TreeNode *parentOfDeleted = NULL;
   theTree->destroyFP(placeholder->data);
   //checking for no children
   if (placeholder->left==NULL && placeholder->right==NULL)
@@ -195,6 +196,7 @@ void treeDeleteNode(Tree *theTree, void *toBeDeleted)
       theTree->root = NULL; //setting root to null if no parent of node to be deleted
     }
 
+    parentOfDeleted = placeholder->parent;
     free(placeholder);
   }
   //check for right root only
@@ -206,16 +208,22 @@ void treeDeleteNode(Tree *theTree, void *toBeDeleted)
       {
         placeholder->parent->left = placeholder->right;
         placeholder->right->parent = placeholder->parent;
+        parentOfDeleted=placeholder->parent;
+        free(placeholder);
       }
       else
       {
         placeholder->parent->right = placeholder->right;
         placeholder->right->parent = placeholder->parent;
+        parentOfDeleted=placeholder->parent;
+        free(placeholder);
       }
     }
     else
     {
       theTree->root = placeholder->right; //setting root to right child if no parent of node to be deleted
+      parentOfDeleted = NULL;
+      free(placeholder);
     }
   }
   //check for left root only
@@ -227,16 +235,22 @@ void treeDeleteNode(Tree *theTree, void *toBeDeleted)
       {
         placeholder->parent->left = placeholder->left;
         placeholder->left->parent = placeholder->parent;
+         parentOfDeleted=placeholder->parent;
+        free(placeholder);
       }
       else
       {
         placeholder->parent->right = placeholder->left;
         placeholder->left->parent = placeholder->parent;
+         parentOfDeleted=placeholder->parent;
+        free(placeholder);
       }
     }
     else
     {
       theTree->root = placeholder->left; //setting root to left child if no parent of node to be deleted
+      parentOfDeleted = NULL;
+      free(placeholder);
     }
   }
   //two children
@@ -251,6 +265,7 @@ void treeDeleteNode(Tree *theTree, void *toBeDeleted)
       findLeft= findLeft->left;
     }
     placeholder->data=findLeftParent->data;
+    parentOfDeleted=findLeftParent->parent;
     if(findLeftParent->right!=NULL)
     {
       findLeftParent->parent->left=findLeftParent->right;
@@ -265,6 +280,102 @@ void treeDeleteNode(Tree *theTree, void *toBeDeleted)
     free(findLeftParent);
   }
   nodeHeightRecalculator(theTree->root);
+
+  //rebalance after delete
+  //parentofdeleted is where we start walking up to find unbalanced nodes
+
+   //step 1:check all parents to find an unbalanced node
+  int leftHeight=0;
+  int rightHeight=0;
+  TreeNode *NodeToBeBalanced=NULL;
+
+  while(parentOfDeleted->parent!=NULL)
+  {
+    if(parentOfDeleted->parent->left!=NULL)
+    {
+      leftHeight=parentOfDeleted->parent->left->height;
+    }
+    else
+    {
+      leftHeight = -1;
+    }
+    if(parentOfDeleted->parent->right!=NULL)
+    {
+      rightHeight=parentOfDeleted->parent->right->height;
+    }
+    else
+    {
+      rightHeight = -1;
+    }
+    if(abs(leftHeight-rightHeight)>1)
+    {
+      NodeToBeBalanced=parentOfDeleted->parent;
+      break;
+    }
+    parentOfDeleted=parentOfDeleted->parent;
+  }
+  //checking if tree needs to be balanced
+  if(NodeToBeBalanced!=NULL)
+  {
+      printf("\nbalance = %d left=%d right=%d",*(int*)NodeToBeBalanced->data,leftHeight,rightHeight);
+    if(leftHeight>rightHeight) //case left
+    {
+      if(NodeToBeBalanced->left->left!=NULL)
+      {
+        if(NodeToBeBalanced->left->right!=NULL)
+        {
+          if(NodeToBeBalanced->left->left->height > NodeToBeBalanced->left->right->height)  //case left left
+          {
+            rightRotate(theTree,NodeToBeBalanced);
+          }
+          else  // case left right
+          {
+            leftRotate(theTree,NodeToBeBalanced->left);
+            rightRotate(theTree,NodeToBeBalanced);
+          }
+        }
+        else //left left
+        {
+          rightRotate(theTree,NodeToBeBalanced);
+        }
+      }
+      else //left right
+      {
+        leftRotate(theTree,NodeToBeBalanced->left);
+        rightRotate(theTree,NodeToBeBalanced);
+      }
+    }
+    else{//case right
+       if(NodeToBeBalanced->right->right!=NULL)
+      {
+        if(NodeToBeBalanced->right->left!=NULL)
+        {
+          if(NodeToBeBalanced->right->right->height > NodeToBeBalanced->right->left->height)  //case right right
+          {
+            leftRotate(theTree,NodeToBeBalanced);
+          }
+          else  // case right left
+          {
+            rightRotate(theTree,NodeToBeBalanced->right);
+            leftRotate(theTree,NodeToBeBalanced);
+          }
+        }
+        else //right right
+        {
+          leftRotate(theTree,NodeToBeBalanced);
+        }
+      }
+      else //right left
+      {
+        rightRotate(theTree,NodeToBeBalanced->right);
+        leftRotate(theTree,NodeToBeBalanced);
+      }
+    }
+    //recalculate heights after balance
+    nodeHeightRecalculator(theTree->root);
+  }
+
+
   return;
 }
 

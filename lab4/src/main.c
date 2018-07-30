@@ -53,7 +53,13 @@ int main()
   treePostOrderPrint(tree,&intPrint);
 
   //delete a node from the tree
-  treeDeleteNode(tree,&data2);
+  //treeDeleteNode(tree,&data2);
+  //treeDeleteNode(tree,&data4);
+   treePreOrderPrint(tree, &intPrint);
+  treeInOrderPrint(tree,&intPrint);
+  treePostOrderPrint(tree,&intPrint);
+ // treeDeleteNode(tree,&data6);
+ // treeDeleteNode(tree,&data8);
 
   //reprint the tree after deletion
   treePreOrderPrint(tree, &intPrint);
@@ -62,6 +68,7 @@ int main()
 
   printf("\nTreeMax:%d", *(int*)treeFindMax(tree));
   printf("\nTreeMin:%d", *(int*)treeFindMin(tree));
+  destroyBalancedBinTree(tree);
   return 0;
 }
 
